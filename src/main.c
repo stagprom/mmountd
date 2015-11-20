@@ -32,10 +32,18 @@ along with mmountd.  If not, see <http://www.gnu.org/licenses/>.
 
 int daemonize = 1;
 
+void usage(void) {
+	fprintf(stderr,"usage: mmountd timeout mountopt device mountpoint [helper]\n");
+}
+
 int main(int argc, char *argv[])
 {
 	int err;
 	
+	if(argc < 4) {
+		usage();
+		return 1;
+	}
 	log_start();
 	log_printf("Starting OpenWrt minimal(auto)mountd V1\n");
 	if (geteuid() != 0) {
